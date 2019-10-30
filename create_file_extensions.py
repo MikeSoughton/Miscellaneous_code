@@ -17,7 +17,7 @@ import os
 
 # ====================================== CREATE NEW FILE EXTENSIONS ====================================================
 
-def file(output_directory, output_file_name, file_type = None):
+def file(output_directory, output_file_name, file_type = None, extension_only = False):
 
     # File to save (without extension)
     #output_file_name = 'val_cow_28_keypoints_default'
@@ -41,11 +41,18 @@ def file(output_directory, output_file_name, file_type = None):
 
     # Get the new file name
     if file_type is None:
-        new_output_file_name = new_output_file_name_list[len(new_output_file_name_list) - 1]
+        if extension_only == False:
+            new_output_file_name = new_output_file_name_list[len(new_output_file_name_list) - 1]
+        elif extension_only == True:
+            new_output_file_name = str(idx).zfill(3)
     elif file_type is not None:
         # Format file_type to remove the dot if it exists (we will add it in again later)
         if file_type.find('.') != -1:
             file_type = file_type.replace('.', '')
-        new_output_file_name = new_output_file_name_list[len(new_output_file_name_list) - 1] + '.' + file_type
+
+        if extension_only == False:
+            new_output_file_name = new_output_file_name_list[len(new_output_file_name_list) - 1] + '.' + file_type
+        elif extension_only == True:
+            new_output_file_name = str(idx).zfill(3) + file_type
 
     return new_output_file_name
